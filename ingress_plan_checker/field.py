@@ -33,3 +33,7 @@ class Field(object):
             apexes[1].x * (portal.y - apexes[0].y))
 
         return s > 0 and t > 0 and 1 - s - t > 0
+
+def new_fields(context, new_link):
+    pass
+

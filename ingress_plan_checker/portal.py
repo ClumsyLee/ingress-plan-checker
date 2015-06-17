@@ -1,12 +1,15 @@
+from .link import Link
+from .common import *
+
 class Portal(object):
     """Portal"""
-    def __init__(self, x, y, index, name="NO NAME", key=0):
+    def __init__(self, x, y, index, name="NO NAME", keys=0):
         super(Portal, self).__init__()
         self.x = x
         self.y = y
         self.index = index
         self.name = name
-        self.key = key
+        self.keys = keys
 
         # In links & out links.
         self.ins = []
@@ -14,5 +17,27 @@ class Portal(object):
 
         self.in_field = False
 
+    @property
+    def neighbors(self):
+        return self.ins + self.outs
+
+
     def link(self, context, target):
-        pass
+        if self.in_field:
+            return PORTAL_IN_FIELD
+        if len(outs) >= 8:
+            return OUT_LINK_LIMIT_REACHED
+
+        # Check intersections.
+        new_link = Link(self, target)
+        for link in context.links:
+            if new_link.intersect(link):
+                return INTERSECT_OTHER_LINK
+
+        # Link possible.
+        self.outs.append(new_link)
+        target.ins.append(new_link)
+        target.keys -= 1
+        context.add_link(new_link)
+
+        return SUCCESS
