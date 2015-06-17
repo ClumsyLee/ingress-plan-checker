@@ -1,5 +1,3 @@
-from .field import new_fields
-
 class Context(object):
     """Context"""
     def __init__(self, portals):
@@ -10,4 +8,8 @@ class Context(object):
 
     def add_link(self, new_link):
         self.links.append(new_link)
-        self.fields.append(new_fields(context, new_link))
+
+        # Add fields here to ensure that we are in a valid state.
+        for new_field in new_link.new_fields():
+            self.fields.append(new_field)
+            new_field.cover(self.portals)

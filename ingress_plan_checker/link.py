@@ -19,3 +19,6 @@ class Link(object):
                 ccw(self.in_po, other.out_po, other.in_po) and
                 ccw(self.out_po, self.in_po, other.out_po) !=
                 ccw(self.out_po, self.in_po, other.in_po))
+
+    def new_fields(self):
+        pass

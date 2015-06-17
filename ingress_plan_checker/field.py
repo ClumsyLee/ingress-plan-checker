@@ -10,9 +10,9 @@ class Field(object):
             apexes[2].x * (apexes[0].y - apexes[1].y)) / 2
         self.area = abs(self.signed_area)
 
-    def cover(self, context):
-        """Cover portals in the context"""
-        for po in context.portals:
+    def cover(self, portals):
+        """Cover portals"""
+        for po in portals:
             if (not po.in_field and self.contains(po)):
                 po.in_field = True
 
@@ -33,7 +33,3 @@ class Field(object):
             apexes[1].x * (portal.y - apexes[0].y))
 
         return s > 0 and t > 0 and 1 - s - t > 0
-
-def new_fields(context, new_link):
-    pass
-
