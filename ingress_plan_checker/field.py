@@ -1,6 +1,6 @@
 class Field(object):
     """Field"""
-    def __init__(self, apexes):
+    def __init__(self, *apexes):
         super(Field, self).__init__()
         self.apexes = apexes
 
