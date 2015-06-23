@@ -1,5 +1,4 @@
 from .link import Link
-from .common import *
 
 class Portal(object):
     """Portal"""
@@ -33,15 +32,15 @@ class Portal(object):
 
     def link(self, context, target):
         if self.in_field:
-            return PORTAL_IN_FIELD
+            return (False, "Portal In Field")
         if len(self.outs) >= 8:
-            return OUT_LINK_LIMIT_REACHED
+            return (False, "Out Link Limit Reached")
 
         # Check intersections.
         new_link = Link(self, target)
         for link in context.links:
             if new_link.intersect(link):
-                return INTERSECT_OTHER_LINK
+                return (False, "Intersects Other Link")
 
         # Link possible.
         self.outs.append(new_link)
@@ -49,4 +48,4 @@ class Portal(object):
         target.keys -= 1
         context.add_link(new_link)
 
-        return SUCCESS
+        return (True, "Success")
