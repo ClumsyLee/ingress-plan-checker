@@ -13,7 +13,7 @@ class Link(object):
                            (out_po.y - in_po.y)**2)
 
     def __str__(self):
-        return "%s => %s" % (out_po.name, in_po.name)
+        return "%s => %s" % (self.out_po.name, self.in_po.name)
 
     def intersect(self, other):
         return (ccw(self.out_po, other.out_po, other.in_po) !=
@@ -22,7 +22,7 @@ class Link(object):
                 ccw(self.out_po, self.in_po, other.in_po))
 
     def new_fields(self):
-        choices = set(out_po.neighbors + in_po.neighbors)
+        choices = set(self.out_po.neighbors + self.in_po.neighbors)
 
         pos_max = neg_max = 0  # Find the largest field on the each side.
         pos_field = neg_field = None
@@ -34,7 +34,7 @@ class Link(object):
             if area > pos_max:
                 pos_max = area
                 pos_field = field
-            else if area < neg_max:
+            elif area < neg_max:
                 neg_max = area
                 neg_field = field
 

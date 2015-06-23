@@ -22,12 +22,14 @@ class Field(object):
         # Algorithm from http://stackoverflow.com/questions/2049582/
         #                how-to-determine-a-point-in-a-triangle.
         # Thanks Andreas Brinck & andreasdr.
+        apexes = self.apexes
+
         s = 1 / (2 * self.signed_area) * (
             portal.x * (apexes[2].y - apexes[0].y) +
             apexes[0].x * (portal.y - apexes[2].y) +
             apexes[2].x * (apexes[0].y - portal.y))
 
-        s = 1 / (2 * self.signed_area) * (
+        t = 1 / (2 * self.signed_area) * (
             portal.x * (apexes[0].y - apexes[1].y) +
             apexes[0].x * (apexes[1].y - portal.y) +
             apexes[1].x * (portal.y - apexes[0].y))

@@ -19,13 +19,18 @@ class Portal(object):
 
     @property
     def neighbors(self):
-        return self.ins + self.outs
+        ns = []
+        for l in self.ins:
+            ns.append(l.out_po)
+        for l in self.outs:
+            ns.append(l.in_po)
 
+        return ns
 
     def link(self, context, target):
         if self.in_field:
             return PORTAL_IN_FIELD
-        if len(outs) >= 8:
+        if len(self.outs) >= 8:
             return OUT_LINK_LIMIT_REACHED
 
         # Check intersections.
