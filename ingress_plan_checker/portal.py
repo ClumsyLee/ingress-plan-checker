@@ -17,6 +17,10 @@ class Portal(object):
 
         self.in_field = False
 
+    def __repr__(self):
+        return "<Portal %s (%s) at (%s, %s), %s key(s)>" % (
+                self.index, self.name, self.x, self.y, self.keys)
+
     @property
     def neighbors(self):
         ns = []

@@ -15,6 +15,9 @@ class Link(object):
     def __str__(self):
         return "%s => %s" % (self.out_po.name, self.in_po.name)
 
+    def __repr__(self):
+        return "<link from %s to %s>" % (self.out_po, self.in_po)
+
     def intersect(self, other):
         return (ccw(self.out_po, other.out_po, other.in_po) !=
                 ccw(self.in_po, other.out_po, other.in_po) and
