@@ -1,3 +1,4 @@
+from math import sqrt
 from .link import Link
 
 class Portal(object):
@@ -49,3 +50,7 @@ class Portal(object):
         context.add_link(new_link)
 
         return (True, "Success")
+
+    def distance(self, other):
+        return sqrt((self.x - other.x) ** 2 +
+                    (self.y - other.y) ** 2)
