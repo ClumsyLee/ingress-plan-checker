@@ -16,10 +16,11 @@ class Portal(object):
         self.outs = []
 
         self.in_field = False
+        self.ap = 0
 
     def __repr__(self):
-        return "<Portal %s (%s) at (%s, %s), %s key(s)>" % (
-                self.index, self.name, self.x, self.y, self.keys)
+        return "<Portal %s (%s) at (%s, %s), %s key(s), %s APs>" % (
+                self.index, self.name, self.x, self.y, self.keys, self.ap)
 
     @property
     def neighbors(self):
@@ -48,6 +49,8 @@ class Portal(object):
         target.ins.append(new_link)
         target.keys -= 1
         context.add_link(new_link)
+
+        self.ap += new_link.ap  # Receive APs.
 
         return (True, "Success")
 

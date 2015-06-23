@@ -1,4 +1,6 @@
 class Field(object):
+    AP = 1250
+
     """Field"""
     def __init__(self, *apexes):
         super(Field, self).__init__()

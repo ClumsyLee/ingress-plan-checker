@@ -3,6 +3,8 @@ from .common import *
 from .field import Field
 
 class Link(object):
+    AP = 313
+
     """Link"""
     def __init__(self, out_po, in_po):
         super(Link, self).__init__()
@@ -12,9 +14,12 @@ class Link(object):
         self.length = sqrt((out_po.x - in_po.x)**2 +
                            (out_po.y - in_po.y)**2)
 
+        self.ap = self.AP
+
     def __repr__(self):
-        return "<link from %s to %s>" % (self.out_po.index,
-                                         self.in_po.index)
+        return "<link from %s to %s, %s AP>" % (self.out_po.index,
+                                                self.in_po.index,
+                                                self.ap)
 
     def intersect(self, other):
         if ({self.in_po, self.out_po} &
@@ -48,5 +53,8 @@ class Link(object):
             new_fields.append(pos_field)
         if neg_field:
             new_fields.append(neg_field)
+
+        # Receive APs.
+        self.ap += Field.AP * len(new_fields)
 
         return new_fields
