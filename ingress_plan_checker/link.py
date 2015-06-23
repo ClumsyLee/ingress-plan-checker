@@ -12,20 +12,22 @@ class Link(object):
         self.length = sqrt((out_po.x - in_po.x)**2 +
                            (out_po.y - in_po.y)**2)
 
-    def __str__(self):
-        return "%s => %s" % (self.out_po.name, self.in_po.name)
-
     def __repr__(self):
-        return "<link from %s to %s>" % (self.out_po, self.in_po)
+        return "<link from %s to %s>" % (self.out_po.index,
+                                         self.in_po.index)
 
     def intersect(self, other):
+        if ({self.in_po, self.out_po} &
+            {other.in_po, other.out_po}):
+            return False  # Share a portal.
+
         return (ccw(self.out_po, other.out_po, other.in_po) !=
                 ccw(self.in_po, other.out_po, other.in_po) and
                 ccw(self.out_po, self.in_po, other.out_po) !=
                 ccw(self.out_po, self.in_po, other.in_po))
 
     def new_fields(self):
-        choices = set(self.out_po.neighbors + self.in_po.neighbors)
+        choices = set(self.out_po.neighbors) & set(self.in_po.neighbors)
 
         pos_max = neg_max = 0  # Find the largest field on the each side.
         pos_field = neg_field = None

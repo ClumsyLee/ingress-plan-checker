@@ -11,9 +11,9 @@ class Field(object):
         self.area = abs(self.signed_area)
 
     def __repr__(self):
-        return "<field (%s, %s, %s)>" % (apexes[0].index,
-                                         apexes[1].index,
-                                         apexes[2].index)
+        return "<field (%s, %s, %s)>" % (self.apexes[0].index,
+                                         self.apexes[1].index,
+                                         self.apexes[2].index)
 
     def cover(self, portals):
         """Cover portals"""
