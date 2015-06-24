@@ -6,10 +6,7 @@ class Field(object):
         super(Field, self).__init__()
         self.apexes = apexes
 
-        self.signed_area = (
-            apexes[0].x * (apexes[1].y - apexes[2].y) +
-            apexes[1].x * (apexes[2].y - apexes[0].y) +
-            apexes[2].x * (apexes[0].y - apexes[1].y)) / 2
+        self.signed_area = signed_area(apexes)
         self.area = abs(self.signed_area)
 
     def __repr__(self):
@@ -42,3 +39,9 @@ class Field(object):
             apexes[1].x * (portal.y - apexes[0].y))
 
         return s > 0 and t > 0 and 1 - s - t > 0
+
+def signed_area(apexes):
+    area = 0
+    for i in range(3):
+        area += apexes[i].x * (apexes[i - 2].y - apexes[i - 1].y)
+    return area / 2
